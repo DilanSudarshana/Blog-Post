@@ -12,7 +12,12 @@ const AddPost = () => {
 
         <div className="field">
           <label>Description</label>
-          <input type="text" name="description" placeholder="Description" />
+          <input
+            type="text"
+            name="description"
+            placeholder="Description"
+            style={{height: '100px'}}
+          />
         </div>
         <button className="ui button blue">Add</button>
       </form>

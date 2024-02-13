@@ -24,10 +24,10 @@ function App() {
   ];
 
   return (
-    <div className="ui container">
+    <div className="d-flex justify-content-center align-items-center flex-column p-5  gap-5">
       <Header />
       <AddPost />
-      <PostList blogs={blogs}/>
+      <PostList blogs={blogs} />
     </div>
   );
 }
