@@ -1,20 +1,34 @@
-import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import AddPost from "./AddPost";
-import PostList from "./PostList"; 
+import PostList from "./PostList";
 
 function App() {
-  const [blogs, setBlogs] = useState([]); 
+  const [blogs, setBlogs] = useState([]);
+  const LOCAL_STORAGE_KEY = "blogs";
 
-  const addPostHandler = (blog) => { // Change the parameter to accept the entire blog object
-    if (!blog.title || !blog.description) { // Access title and description from the blog object
+  const addPostHandler = (blog) => {
+    if (!blog.title || !blog.description) {
       alert("Please fill in both title and description.");
       return;
     }
-    setBlogs(prevBlogs => [...prevBlogs, blog]);
-    console.log(blog);
-  }
+    setBlogs((prevBlogs) => [...prevBlogs, blog]);
+  };
+
+  const deleteHandler = (index) => {
+    const updatedBlogs = [...blogs];
+    updatedBlogs.splice(index, 1);
+    setBlogs(updatedBlogs);
+  };
+
+  useEffect(() => {
+    const retrieveBlogs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+    setBlogs(retrieveBlogs);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(blogs));
+  }, [blogs]);
 
   return (
     <div className="container">
@@ -25,7 +39,7 @@ function App() {
         <AddPost addPostHandler={addPostHandler} />
       </div>
       <div className="container rounded border shadow p-3 mt-5">
-        <PostList blogs={blogs} />
+        <PostList deleteHandler={deleteHandler} blogs={blogs} />
       </div>
     </div>
   );

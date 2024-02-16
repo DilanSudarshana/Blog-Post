@@ -1,12 +1,20 @@
 import React from "react";
 import BlogCard from "./BlogCard";
 
-const PostList = (props) => {
-  const renderPostList = props.blogs.map((blog) => {
-    return <BlogCard key={blog.id} blog={blog} />;
-  });
-
-  return <div className="ui celled list">{renderPostList}</div>;
+const PostList = ({ blogs = [], deleteHandler = () => {} }) => {
+  return (
+    <div className="overflow-auto p-4 rounded">
+      {blogs.map((blog, index) => (
+        <BlogCard
+          key={index}
+          index={index}
+          title={blog.title}
+          description={blog.description}
+          deleteHandler={deleteHandler}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default PostList;

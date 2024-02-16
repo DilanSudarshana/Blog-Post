@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddPost = (props) => {
+const AddPost = ({ addPostHandler }) => {
   const [blog, setBlog] = useState({
     title: "",
     description: "",
@@ -12,8 +12,7 @@ const AddPost = (props) => {
       alert("Fill in all inputs!");
       return;
     }
-    props.addPostHandler(blog);
-    console.log(blog);
+    addPostHandler(blog);
     setBlog({ title: "", description: "" });
   };
 
@@ -31,7 +30,6 @@ const AddPost = (props) => {
             onChange={(e) => setBlog({ ...blog, title: e.target.value })}
           />
         </div>
-
         <div className="field">
           <label>Description</label>
           <input
@@ -50,4 +48,5 @@ const AddPost = (props) => {
     </div>
   );
 };
+
 export default AddPost;
